@@ -13,7 +13,7 @@ drop table if exists User;
 /*==============================================================*/
 create table Auction
 (
-   id         int not null,
+   id         int not null auto_increment,
    user_id        int not null,
    item_id         int not null,
    start_price      float(50) not null,
@@ -29,7 +29,7 @@ create table Auction
 /*==============================================================*/
 create table Person
 (
-   id             int not null,
+   id             int not null auto_increment,
    user_id        int not null,
    name                 char(50) not null,
    surname             char(50) not null,
@@ -43,7 +43,7 @@ create table Person
 /*==============================================================*/
 create table Bid
 (
-   id         int not null,
+   id         int not null auto_increment,
    auction_id         int not null,
    user_id        int not null,
    amount                float(50),
@@ -67,7 +67,7 @@ create table Item
 /*==============================================================*/
 create table User
 (
-   id        int not null,
+   id        int not null auto_increment,
    login                char(50) not null,
    password                char(50) not null,
    create_date       datetime not null,

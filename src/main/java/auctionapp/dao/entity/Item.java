@@ -16,7 +16,7 @@ public class Item {
     @Column(name = "name")
     private String name;
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private ItemCategoryEnum category;
 
     public Item(String name, ItemCategoryEnum category) {
