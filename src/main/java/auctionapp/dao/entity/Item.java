@@ -19,6 +19,9 @@ public class Item {
     @Enumerated(EnumType.STRING)
     private ItemCategoryEnum category;
 
+    @OneToOne(mappedBy = "item")
+    private Auction auction;
+
     public Item(String name, ItemCategoryEnum category) {
         this.name = name;
         this.category = category;

@@ -47,7 +47,7 @@ create table Bid
    auction_id         int not null,
    user_id        int not null,
    amount                float(50),
-   data                 datetime,
+   date                 datetime,
    primary key (id)
 );
 
@@ -75,17 +75,17 @@ create table User
    primary key (id)
 );
 
-alter table Auction add constraint FK_przedmiot_licytacja foreign key (item_id)
+alter table Auction add constraint FK_item_auction foreign key (item_id)
       references Item (id) on delete restrict on update restrict;
 
-alter table Auction add constraint FK_uzytkownik_licytacja foreign key (user_id)
+alter table Auction add constraint FK_user_auction foreign key (user_id)
       references User (id) on delete restrict on update restrict;
 
-alter table Person add constraint FK_uzytkownik_dane foreign key (user_id)
+alter table Person add constraint FK_user_person foreign key (user_id)
       references User (id) on delete restrict on update restrict;
 
-alter table Bid add constraint FK_przebicie_licytacja foreign key (auction_id)
+alter table Bid add constraint FK_bid_auction foreign key (auction_id)
       references Auction (id) on delete restrict on update restrict;
 
-alter table Bid add constraint FK_uzytkownik_przebicie foreign key (user_id)
+alter table Bid add constraint FK_user_bid foreign key (user_id)
       references User (id) on delete restrict on update restrict;

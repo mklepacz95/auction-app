@@ -1,7 +1,5 @@
 package auctionapp.dao.entity;
 
-import sun.security.util.Password;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
