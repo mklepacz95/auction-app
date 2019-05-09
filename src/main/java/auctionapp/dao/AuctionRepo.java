@@ -1,9 +1,9 @@
 package auctionapp.dao;
 
-import auctionapp.dao.entity.User;
+import auctionapp.dao.entity.Auction;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserRepo extends CrudRepository<User, Integer> {
+public interface AuctionRepo extends CrudRepository<Auction, Long> {
 }
