@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/auctionAPI")
 public class AuctionApi {
 
@@ -25,6 +26,6 @@ public class AuctionApi {
     public Auction saveAuction(@RequestBody Auction auction) {
         return auctionManager.saveAution(auction);
     }
-    
+
 
 }

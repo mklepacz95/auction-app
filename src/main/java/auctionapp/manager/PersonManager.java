@@ -5,6 +5,7 @@ import auctionapp.dao.entity.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -28,6 +29,10 @@ public class PersonManager {
 
     public Optional<Person> findPersonById(Integer id) {
         return personRepo.findById(id);
+    }
+
+    public List<Person> findPersonByUserLogin(String login) {
+        return personRepo.findPersonByUserLogin(login);
     }
 
 }
