@@ -5,7 +5,10 @@ import auctionapp.manager.BidManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
+@CrossOrigin
 @RequestMapping("/bidAPI")
 public class BidApi {
     private BidManager bidManager;
@@ -23,6 +26,11 @@ public class BidApi {
     @PostMapping("/bid")
     public Bid saveBid(@RequestBody Bid bid) {
         return bidManager.saveBid(bid);
+    }
+
+    @GetMapping("/bid/auction/{id}")
+    public List<Bid> findAllBidsByAuctionId(@PathVariable Long id) {
+        return bidManager.findAllBidsByAuctionId(id);
     }
 
 }

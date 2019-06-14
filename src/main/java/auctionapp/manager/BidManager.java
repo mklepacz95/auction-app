@@ -5,6 +5,8 @@ import auctionapp.dao.entity.Bid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class BidManager {
 
@@ -21,5 +23,9 @@ public class BidManager {
 
     public Bid saveBid(Bid bid) {
         return bidRepo.save(bid);
+    }
+
+    public List<Bid> findAllBidsByAuctionId(Long id) {
+        return  bidRepo.findAllBidsByAuctionId(id);
     }
 }

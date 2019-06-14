@@ -5,9 +5,11 @@ import auctionapp.manager.UserManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/userAPI")
 public class UserApi {
 
@@ -31,6 +33,11 @@ public class UserApi {
     @PostMapping("/user")
     public String saveUser(@RequestBody User user) {
         return userManager.saveUser(user);
+    }
+
+    @GetMapping("/user/login/{login}")
+    public List<User> findUserByLogin(@PathVariable String login) {
+        return userManager.findUserByUsername(login);
     }
 
 }
