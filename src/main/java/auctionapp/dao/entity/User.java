@@ -1,12 +1,12 @@
 package auctionapp.dao.entity;
 
 import org.hibernate.annotations.CreationTimestamp;
-
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "user")
+@Table(name = "user", uniqueConstraints = @UniqueConstraint(columnNames = "login"))
 public class User {
 
     @Id
@@ -14,17 +14,19 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @Column(name = "login")
+    @Column(unique = true, name = "login")
+    @NotNull(message = "Login cannot by null")
     private String login;
 
     @Column(name = "password")
+    @NotNull
     private String password;
 
     @CreationTimestamp
     @Column(name = "create_date")
     private LocalDateTime createDate;
 
-    @Column(name = "active")
+    @Column(name = "active", columnDefinition = "tinyint(1) defaul 1")
     private Boolean active;
 
     @OneToOne(mappedBy = "user")

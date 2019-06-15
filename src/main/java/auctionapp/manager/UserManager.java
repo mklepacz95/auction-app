@@ -2,11 +2,10 @@ package auctionapp.manager;
 
 import auctionapp.dao.UserRepo;
 import auctionapp.dao.entity.User;
-import com.sun.org.apache.xpath.internal.operations.Bool;
-import org.apache.el.parser.BooleanNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,7 +28,7 @@ public class UserManager {
     }
 
     public String saveUser(User user) {
-        if(userRepo.save(user) != null) return "User saved sucessfull";
+        if (userRepo.save(user) != null) return "User saved sucessfull";
         else return "User does not saved";
     }
 
