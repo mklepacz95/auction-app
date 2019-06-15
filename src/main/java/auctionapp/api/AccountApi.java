@@ -20,6 +20,7 @@ public class AccountApi {
 
     @PostMapping("/account")
     public String saveUser(@RequestBody Person person) {
+        person.getUser().setActive(true);
         return accountManager.saveAccount(person);
     }
 
