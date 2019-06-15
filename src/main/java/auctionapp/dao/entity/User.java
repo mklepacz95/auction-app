@@ -1,5 +1,7 @@
 package auctionapp.dao.entity;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -18,6 +20,7 @@ public class User {
     @Column(name = "password")
     private String password;
 
+    @CreationTimestamp
     @Column(name = "create_date")
     private LocalDateTime createDate;
 
