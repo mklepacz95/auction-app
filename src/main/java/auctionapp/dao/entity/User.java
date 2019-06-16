@@ -1,6 +1,8 @@
 package auctionapp.dao.entity;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.lang.Nullable;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
@@ -26,7 +28,7 @@ public class User {
     @Column(name = "create_date")
     private LocalDateTime createDate;
 
-    @Column(name = "active", columnDefinition = "tinyint(1) defaul 1")
+    @Column(name = "active")
     private Boolean active;
 
     @OneToOne(mappedBy = "user")
