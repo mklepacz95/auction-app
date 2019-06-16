@@ -14,12 +14,12 @@ public class JwtFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
         String header = httpServletRequest.getHeader("authorization");
-        if(httpServletRequest == null || !header.startsWith("Bearer ")) {
-            throw new ServletException("Authorization header is empty or don't starts with \"Bearer \"");
+        if(httpServletRequest == null || !header.startsWith("Brearer ")) {
+            throw new ServletException("Authorization header is empty or doesn't starts with \"Bearer \"");
         }
         else {
-            String token = header.substring(7);
-            Claims claims = Jwts.parser().setSigningKey(signingKey).parseClaimsJws(token).getBody();
+            //String token = header.substring(7);
+            Claims claims = Jwts.parser().setSigningKey(signingKey).parseClaimsJws(header).getBody();
             servletRequest.setAttribute("claims",claims);
         }
         filterChain.doFilter(servletRequest,servletResponse);

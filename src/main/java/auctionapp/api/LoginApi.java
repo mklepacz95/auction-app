@@ -32,7 +32,7 @@ public class LoginApi {
         }
         else  {
             if(userManager.verifyPassowrdForUser(user.getLogin(), user.getPassword()))
-            response = "Bearer " + Jwts.builder()
+            response = "Brearer " + Jwts.builder()
                     .setSubject(user.getLogin())
                     .claim("role","user")
                     .setIssuedAt(new Date(currentMilis))
