@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Date;
 
 @RestController
-@CrossOrigin
 public class LoginApi {
 
     private UserManager userManager;
