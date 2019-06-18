@@ -5,7 +5,6 @@ import auctionapp.manager.UserManager;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,7 +15,7 @@ import java.util.Date;
 public class LoginApi {
 
     private UserManager userManager;
-    private static final String signKey = "lfdAmcWptKEeX89Mg2DvRhz3zj5D8mtN62QEvcy5m7EsguxVDGQ-MSHquOryUkBefPKJGPFYyFggtHUyu8hP8M5Xv7vvgNdfU0PvxfgceBJkcNgbdEggjqYfRJ5s-QlBwT-_BeiDCH_RqGxyHErHEfjtn5JdCvSDp4vZfA6oUcPPRDu563ghPFP1hTpiSdSAwYHdZeYXjCu8XoaerHcqIsZux-VvNaLjDicBj6tBqvG7lspikxwzbPiFV3sbmTC1FOC_LSJA5SshwCd6gj2MaWjIairwIvALHM3KZthBVfYPrYH8VsXiIj3kR347FYt0zBUZsspoJts7N-T2ALZprw";
+    private static final String signKey = "l2fvExEcqKRcF-EFVgOEtN65aocBw4MaAGOeX3i57-5zVMsUcpvHmFGKedqPCMxGyRBMoDKITlokxsq5_bMIuIFm7_LT_IJdBHwyxCfkn4TnHWmXO8r3UDFm3yEJpowSYgn8dlALn0JlMYgh-u7BLDIKgIzhYdRGNvrJqm6MMSPJxElZraAPXTij5bsAWkn2PiErZR49DgzGu0KLPPwEkt6blbxxa0kie9xiJ7O0HfvwnqcJLUo-0DVIBY1BcNDI3_fhl8lrJCU3AazmT0CW3JI90LCHJQWE0xDW4WD5NpwVFrpRNIRGSeW_CFO93PEhfdqWrEr3golgS2V2gExbTw";
 
     @Autowired
     public LoginApi(UserManager userManager) {
@@ -32,7 +31,7 @@ public class LoginApi {
         }
         else  {
             if(userManager.verifyPassowrdForUser(user.getLogin(), user.getPassword()))
-            response = "Bearer " + Jwts.builder()
+            response = Jwts.builder()
                     .setSubject(user.getLogin())
                     .claim("role","user")
                     .setIssuedAt(new Date(currentMilis))
