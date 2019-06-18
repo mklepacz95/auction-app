@@ -13,7 +13,6 @@ public class JwtFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException { HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
-        System.out.println(httpServletRequest.getMethod());
         if(!httpServletRequest.getMethod().equals("OPTIONS")) {
             String header = httpServletRequest.getHeader("authorization");
             if (httpServletRequest == null || !header.startsWith("Bearer ")) {
