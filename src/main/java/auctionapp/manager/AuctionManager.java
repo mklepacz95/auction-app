@@ -5,6 +5,8 @@ import auctionapp.dao.entity.Auction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class AuctionManager {
 
@@ -25,6 +27,10 @@ public class AuctionManager {
 
     public Auction saveAution(Auction auction) {
         return auctionRepo.save(auction);
+    }
+
+    public Optional<Auction> getAuctionById(Long id) {
+        return auctionRepo.findById(id);
     }
 
 }
