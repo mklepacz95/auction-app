@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AuctionRepo extends CrudRepository<Auction, Long> {
+    Iterable<Auction> getAllByUserLogin(String login);
 }

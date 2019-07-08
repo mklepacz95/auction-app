@@ -19,7 +19,12 @@ public class AuctionManager {
         return auctionRepo.findAll();
     }
 
+    public Iterable<Auction> getAllAuctionsByLogin(String login) {
+        return auctionRepo.getAllByUserLogin(login);
+    }
+
     public Auction saveAution(Auction auction) {
         return auctionRepo.save(auction);
     }
+
 }
