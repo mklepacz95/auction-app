@@ -1,5 +1,7 @@
 package auctionapp.dao.entity;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -16,6 +18,7 @@ public class Bid {
     private Double amount;
 
     @Column(name = "date")
+    @CreationTimestamp
     private LocalDateTime date;
 
     @ManyToOne
