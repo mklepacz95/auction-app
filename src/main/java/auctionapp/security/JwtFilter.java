@@ -1,5 +1,6 @@
 package auctionapp.security;
 
+import auctionapp.manager.UserManager;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 

@@ -2,6 +2,7 @@ package auctionapp.api;
 
 import auctionapp.dao.entity.Auction;
 import auctionapp.manager.AuctionManager;
+import auctionapp.manager.JwtManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,14 +11,16 @@ import org.springframework.web.bind.annotation.*;
 public class AuctionApi {
 
     private AuctionManager auctionManager;
+    private JwtManager jwtManager;
 
     @Autowired
     public AuctionApi(AuctionManager auctionManager) {
         this.auctionManager = auctionManager;
+        this.jwtManager = new JwtManager();
     }
 
     @GetMapping("/auctions")
-    public Iterable<Auction> getAllAuction() {
+    public Iterable<Auction> getAllAuction(@RequestHeader("Authorization") String jwt) {
         return  auctionManager.getAllAuctions();
     }
 
@@ -26,5 +29,9 @@ public class AuctionApi {
         return auctionManager.saveAution(auction);
     }
 
-
+    @GetMapping("/userAuction")
+    public Iterable<Auction> getAllAuctionByLogin(@RequestHeader("Authorization") String jwt) {
+        String login = jwtManager.getLoginFromJwt(jwt);
+        return auctionManager.getAllAuctionsByLogin(login);
+    }
 }

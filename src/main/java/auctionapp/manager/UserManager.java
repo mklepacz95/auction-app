@@ -44,4 +44,9 @@ public class UserManager {
     public String getPassowrdByLogin(String login) {
         return userRepo.findPasswordByLogin(login).getPassword();
     }
+
+    public boolean userExisit(String login) {
+        if(findUserByUsername(login).size() == 0) return false;
+        else return true;
+    }
 }

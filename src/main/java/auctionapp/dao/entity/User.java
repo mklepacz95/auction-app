@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "user", uniqueConstraints = @UniqueConstraint(columnNames = "login"))
-public class User {
+public class User  {
 
     @Id
     @Column(name = "id")
