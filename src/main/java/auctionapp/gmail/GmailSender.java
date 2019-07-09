@@ -80,7 +80,7 @@ public class GmailSender {
                 System.out.printf("- %s\n", label.getName());
             }
         }
-        MimeMessage emailContext = createEmail("mklepacz95@gmail.com"
+        MimeMessage emailContext = createEmail("timauctionapp@gmail.com"
                 ,"timauctionapp@gmail.com"
                 ,"Testowy mail"
                 ,"Testowa tresc maila");
