@@ -33,7 +33,7 @@ public class BidManager {
             if(!maxBid.isPresent()) return bidRepo.save(bid);
             else {
                 if(maxBid.get().getAmount() < bid.getAmount()){
-                    if(bid.getAmount() - maxBid.get().getAmount() > auction.get().getMinBid()) return bidRepo.save(bid);
+                    if(bid.getAmount() - maxBid.get().getAmount() >= auction.get().getMinBid()) return bidRepo.save(bid);
                     else throw new SmallerBid("Bid have to small amount. Minium amount must be: " + (auction.get().getMinBid()+maxBid.get().getAmount()) );
                 }
                 else throw new SmallerBid("Amount in bid is smaller than max bid of auction");
