@@ -49,4 +49,11 @@ public class UserManager {
         if(findUserByUsername(login).size() == 0) return false;
         else return true;
     }
+
+    public String changePassword(String password, String login) throws Exception {
+        User user = findUserByUsername(login).get(0);
+        user.setPassword(password);
+        if(userRepo.save(user) != null) return "Password has been successfully changed";
+        else throw new Exception("The password change operation ended incorrectly");
+    }
 }
