@@ -6,6 +6,10 @@ import auctionapp.manager.JwtManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
+import java.io.IOException;
+import java.security.GeneralSecurityException;
+
 @RestController
 @RequestMapping("/auctionAPI")
 public class AuctionApi {
@@ -25,7 +29,7 @@ public class AuctionApi {
     }
 
     @PostMapping("/auction")
-    public Auction saveAuction(@RequestBody Auction auction) {
+    public Auction saveAuction(@RequestBody Auction auction) throws GeneralSecurityException, IOException, MessagingException {
         return auctionManager.saveAution(auction);
     }
 

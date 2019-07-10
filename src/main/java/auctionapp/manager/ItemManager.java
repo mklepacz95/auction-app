@@ -36,4 +36,8 @@ public class ItemManager {
         return itemRepo.findByCategory(itemCategory);
     }
 
+    public Item find(Integer id) {
+        return itemRepo.findItemById(id);
+    }
+
 }

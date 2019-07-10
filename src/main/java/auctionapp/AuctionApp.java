@@ -18,7 +18,7 @@ public class AuctionApp {
     public FilterRegistrationBean filterRegistrationBean() {
         FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
         filterRegistrationBean.setFilter(new JwtFilter());
-        filterRegistrationBean.setUrlPatterns(Collections.singleton("/auctionAPI/*"));
+        filterRegistrationBean.addUrlPatterns("/auctionAPI/*");
         filterRegistrationBean.addUrlPatterns("/userAPI/*");
         filterRegistrationBean.addUrlPatterns("/itemAPI/*");
         filterRegistrationBean.addUrlPatterns("/bidAPI/*");

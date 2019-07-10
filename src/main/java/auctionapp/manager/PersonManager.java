@@ -35,4 +35,18 @@ public class PersonManager {
         return personRepo.findPersonByUserLogin(login);
     }
 
+    public String getEmailFromPesronByUserId(Integer userId) {
+        Optional<Person> person = personRepo.findPersonByUserId(userId);
+        if(person.isPresent()) {
+            return person.get().getEmail();
+        } else throw new NullPointerException("Person by user id not found");
+    }
+
+    public String getNameFromPesronByUserId(Integer userId) {
+        Optional<Person> person = personRepo.findPersonByUserId(userId);
+        if(person.isPresent()) {
+            return person.get().getName();
+        } else throw new NullPointerException("Person by user id not found");
+    }
+
 }
