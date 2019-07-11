@@ -3,6 +3,8 @@ package auctionapp.manager;
 import auctionapp.dao.AuctionRepo;
 import auctionapp.dao.entity.Auction;
 import auctionapp.dao.entity.Item;
+import auctionapp.dao.entity.User;
+import auctionapp.exception.AuctionException;
 import auctionapp.gmail.GmailSender;
 import com.google.api.services.gmail.GmailScopes;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,14 +21,16 @@ public class AuctionManager {
     private AuctionRepo auctionRepo;
     private PersonManager personManager;
     private GmailSender gmailSender;
+    private UserManager userManager;
     private ItemManager itemManager;
 
     @Autowired
-    public AuctionManager(AuctionRepo auctionRepo, PersonManager personManager, ItemManager itemManager) {
+    public AuctionManager(AuctionRepo auctionRepo, PersonManager personManager, ItemManager itemManager, UserManager userManager) {
         this.auctionRepo = auctionRepo;
         this.personManager = personManager;
         this.itemManager = itemManager;
         this.gmailSender = new GmailSender();
+        this.userManager = userManager;
     }
 
     public Iterable<Auction> getAllAuctions() {
@@ -37,11 +41,15 @@ public class AuctionManager {
         return auctionRepo.getAllByUserLogin(login);
     }
 
-    public Auction saveAution(Auction auction) throws GeneralSecurityException, IOException, MessagingException {
+    public Auction saveAution(Auction auction, String login) throws GeneralSecurityException, IOException, MessagingException, AuctionException {
         Item item = auction.getItem();
+        Integer userId = userManager.findUserByUsername(login).get(0).getId();
+        User user = new User();
+        user.setId(userId);
+        auction.setUser(user);
         if(item.getId() == null) itemManager.save(item);
         Auction saveAuction = auctionRepo.save(auction);
-        if(auction.equals(null)) throw new NullPointerException("Auction is not saved");
+        if(auction.equals(null)) throw new AuctionException("Auction is not saved");
         else {
             String email = personManager.getEmailFromPesronByUserId(saveAuction.getUser().getId());
             String personName = personManager.getNameFromPesronByUserId(saveAuction.getUser().getId());
@@ -55,4 +63,14 @@ public class AuctionManager {
         return auctionRepo.findById(id);
     }
 
+
+    public String deleteAuction(String login, Long autionId) throws AuctionException {
+        Optional<Auction> auction = auctionRepo.findById(autionId);
+        if(auction.isPresent()) {
+            if(auction.get().getUser().getLogin().equals(login)) {
+                auctionRepo.delete(auction.get());
+                return "The auction has been successfully removed";
+            } else throw new AuctionException("User is not the owner of the auction");
+        } else throw new AuctionException("Auction not found");
+    }
 }

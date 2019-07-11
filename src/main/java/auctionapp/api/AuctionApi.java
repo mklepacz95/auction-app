@@ -1,6 +1,7 @@
 package auctionapp.api;
 
 import auctionapp.dao.entity.Auction;
+import auctionapp.exception.AuctionException;
 import auctionapp.manager.AuctionManager;
 import auctionapp.manager.JwtManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,13 +30,18 @@ public class AuctionApi {
     }
 
     @PostMapping("/auction")
-    public Auction saveAuction(@RequestBody Auction auction) throws GeneralSecurityException, IOException, MessagingException {
-        return auctionManager.saveAution(auction);
+    public Auction saveAuction(@RequestBody Auction auction, @RequestHeader("Authorization") String jwt) throws GeneralSecurityException, IOException, MessagingException, AuctionException {
+        return auctionManager.saveAution(auction, jwtManager.getLoginFromJwt(jwt));
     }
 
     @GetMapping("/userAuction")
     public Iterable<Auction> getAllAuctionByLogin(@RequestHeader("Authorization") String jwt) {
         String login = jwtManager.getLoginFromJwt(jwt);
         return auctionManager.getAllAuctionsByLogin(login);
+    }
+
+    @DeleteMapping("/auction/{id}")
+    public String deleteAuction(@RequestHeader("Authorization") String jwt, @PathVariable Long id) throws AuctionException {
+        return auctionManager.deleteAuction(jwtManager.getLoginFromJwt(jwt),id);
     }
 }
