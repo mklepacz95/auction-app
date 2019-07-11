@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import javax.mail.MessagingException;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -37,7 +38,7 @@ public class AuctionManager {
         return auctionRepo.findAll();
     }
 
-    public Iterable<Auction> getAllAuctionsByLogin(String login) {
+    public List<Auction> getAllAuctionsByLogin(String login) {
         return auctionRepo.getAllByUserLogin(login);
     }
 

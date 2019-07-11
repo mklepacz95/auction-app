@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.mail.MessagingException;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/auctionAPI")
@@ -35,7 +36,7 @@ public class AuctionApi {
     }
 
     @GetMapping("/userAuction")
-    public Iterable<Auction> getAllAuctionByLogin(@RequestHeader("Authorization") String jwt) {
+    public List<Auction> getAllAuctionByLogin(@RequestHeader("Authorization") String jwt) {
         String login = jwtManager.getLoginFromJwt(jwt);
         return auctionManager.getAllAuctionsByLogin(login);
     }
