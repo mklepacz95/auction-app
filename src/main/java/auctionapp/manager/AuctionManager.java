@@ -41,7 +41,7 @@ public class AuctionManager {
         return auctionRepo.getAllByUserLogin(login);
     }
 
-    public Auction saveAution(Auction auction, String login) throws GeneralSecurityException, IOException, MessagingException, AuctionException {
+    public Auction saveAution(Auction auction, String login) throws AuctionException {
         Item item = auction.getItem();
         Integer userId = userManager.findUserByUsername(login).get(0).getId();
         User user = new User();
@@ -50,12 +50,6 @@ public class AuctionManager {
         if(item.getId() == null) itemManager.save(item);
         Auction saveAuction = auctionRepo.save(auction);
         if(auction.equals(null)) throw new AuctionException("Auction is not saved");
-        else {
-            String email = personManager.getEmailFromPesronByUserId(saveAuction.getUser().getId());
-            String personName = personManager.getNameFromPesronByUserId(saveAuction.getUser().getId());
-            String itemName = itemManager.find(saveAuction.getItem().getId()).getName();
-            gmailSender.send(email,personName,auction.getId(),itemName);
-        }
         return saveAuction;
     }
 
