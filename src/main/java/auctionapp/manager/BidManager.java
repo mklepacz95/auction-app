@@ -47,9 +47,16 @@ public class BidManager {
         //return bidRepo.save(bid);
     }
 
-    public List<Bid> findAllBidsByAuctionId(Long id) {
-        return  bidRepo.findAllBidsByAuctionId(id);
+    public List<Bid> findAllBidsByAuctionIdAndUserId(Long id, String login) {
+        Integer userId = userManager.findUserByUsername(login).get(0).getId();
+        return  bidRepo.findAllBidsByAuctionIdAndUserId(id,userId);
     }
 
     public Optional<Bid> findMaxByAuctionId(Long id) { return bidRepo.findTopByAuctionIdOrderByAmountDesc(id);}
+
+
+    public Optional<Bid> findTopByAuctionIdAndUserIdOrderByAmountDesc(Long id, String login) {
+        Integer userId = userManager.findUserByUsername(login).get(0).getId();
+        return bidRepo.findTopByAuctionIdAndUserIdOrderByAmountDesc(id, userId);
+    }
 }

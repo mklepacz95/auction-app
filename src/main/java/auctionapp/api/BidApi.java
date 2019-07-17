@@ -34,13 +34,14 @@ public class BidApi {
     }
 
     @GetMapping("/bid/auction/{id}")
-    public List<Bid> findAllBidsByAuctionId(@PathVariable Long id) {
-        return bidManager.findAllBidsByAuctionId(id);
+    public List<Bid> findAllBidsByAuctionId(@PathVariable Long id, @RequestHeader("Authorization") String jwt) {
+        String login = jwtManager.getLoginFromJwt(jwt);
+        return bidManager.findAllBidsByAuctionIdAndUserId(id, login);
     }
 
     @GetMapping("/maxBid/auction/{id}")
-    public Optional<Bid> findMaxBidByAucitonId(@PathVariable Long id) {
-        return bidManager.findMaxByAuctionId(id);
+    public Optional<Bid> findMaxBidByAucitonIdAndUserLogin(@PathVariable Long id, @RequestHeader("Authorization") String jwt) {
+        String login = jwtManager.getLoginFromJwt(jwt);
+        return bidManager.findTopByAuctionIdAndUserIdOrderByAmountDesc(id,login);
     }
-
 }
