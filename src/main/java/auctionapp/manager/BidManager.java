@@ -3,6 +3,7 @@ package auctionapp.manager;
 import auctionapp.dao.BidRepo;
 import auctionapp.dao.entity.Auction;
 import auctionapp.dao.entity.Bid;
+import auctionapp.dao.entity.User;
 import auctionapp.exception.SmallerBid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,8 +30,10 @@ public class BidManager {
     }
 
     public Bid saveBid(Bid bid, String login) throws SmallerBid {
+        User u = new User();
         Integer userId = userManager.findUserByUsername(login).get(0).getId();
-        bid.getUser().setId(userId);
+        u.setId(userId);
+        bid.setUser(u);
         Optional<Auction> auction = auctionManager.getAuctionById(bid.getAuction().getId());
         if(auction.isPresent()) {
             Optional<Bid> maxBid = findMaxByAuctionId(auction.get().getId());
