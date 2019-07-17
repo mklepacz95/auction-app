@@ -3,6 +3,7 @@ package auctionapp.api;
 import auctionapp.dao.entity.Bid;
 import auctionapp.exception.SmallerBid;
 import auctionapp.manager.BidManager;
+import auctionapp.manager.JwtManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,10 +14,12 @@ import java.util.Optional;
 @RequestMapping("/bidAPI")
 public class BidApi {
     private BidManager bidManager;
+    private JwtManager jwtManager;
 
     @Autowired
     public BidApi(BidManager bidManager) {
         this.bidManager = bidManager;
+        this.jwtManager = new JwtManager();
     }
 
     @GetMapping("/bids")
@@ -25,8 +28,9 @@ public class BidApi {
     }
 
     @PostMapping("/bid")
-    public Bid saveBid(@RequestBody Bid bid) throws SmallerBid {
-        return bidManager.saveBid(bid);
+    public Bid saveBid(@RequestBody Bid bid, @RequestHeader("Authorization") String jwt) throws SmallerBid {
+        String login = jwtManager.getLoginFromJwt(jwt);
+        return bidManager.saveBid(bid,login);
     }
 
     @GetMapping("/bid/auction/{id}")

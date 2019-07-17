@@ -15,18 +15,22 @@ public class BidManager {
 
     private BidRepo bidRepo;
     private AuctionManager auctionManager;
+    private UserManager userManager;
 
     @Autowired
-    public BidManager(BidRepo bidRepo, AuctionManager auctionManager) {
+    public BidManager(BidRepo bidRepo, AuctionManager auctionManager, UserManager userManager) {
         this.bidRepo = bidRepo;
         this.auctionManager = auctionManager;
+        this.userManager = userManager;
     }
 
     public Iterable<Bid> getAllBids() {
         return bidRepo.findAll();
     }
 
-    public Bid saveBid(Bid bid) throws SmallerBid {
+    public Bid saveBid(Bid bid, String login) throws SmallerBid {
+        Integer userId = userManager.findUserByUsername(login).get(0).getId();
+        bid.getUser().setId(userId);
         Optional<Auction> auction = auctionManager.getAuctionById(bid.getAuction().getId());
         if(auction.isPresent()) {
             Optional<Bid> maxBid = findMaxByAuctionId(auction.get().getId());
